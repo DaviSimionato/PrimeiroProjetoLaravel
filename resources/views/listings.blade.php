@@ -8,19 +8,19 @@
 </head>
 <body>
     <h1>Oi</h1>
-
-    @if (count($dataArray) < 1)
-        <p>Nada aqui 😓</p>
-    @else
-        @foreach ($dataArray as $item)
-            <a href="/listings/{{$item["id"]}}">{{$item["nome"]}}</a>
-            <p>Id: {{ $item["id"] }}</p>
-            <p>Nome: {{ $item["nome"] }}</p>
-            <p>Idade: {{ $item["idade"] }}</p>
-            <br><br>
-        @endforeach
-    @endif
-
+    <main style="max-width: 500px; margin-top: 30px; margin-left: 60px">
+        @if (empty($dataArray))
+            <p>Nada aqui 😓</p>
+            @dd($dataArray);
+        @else
+            @foreach ($dataArray as $item)
+                <h2><a href="/listings/{{$item["id"]}}">{{$item["title"]}}</a></h2>
+                <p>Id: {{ $item["id"] }}</p>
+                <p style="max-width: 600px">{{ $item["description"] }}</p>
+                <br><br>
+            @endforeach
+        @endif
+    </main>
 </body>
 </html>
 

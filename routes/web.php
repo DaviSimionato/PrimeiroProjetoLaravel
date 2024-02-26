@@ -17,7 +17,7 @@ use App\Models\Listing;
 
 Route::get('/', function () {
     return view('listings', [
-        "dataArray" => Listing::getAll()
+        "dataArray" => Listing::all()
     ]);
 });
 

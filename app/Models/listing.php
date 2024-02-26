@@ -1,30 +1,11 @@
-<?php 
-    namespace App\Models;
+<?php
 
-    class Listing {
+namespace App\Models;
 
-        public static function getAll() {
-            return [
-                [
-                    "id" => 1,
-                    "nome" => "Davi",
-                    "idade" => 20
-                ],
-                [
-                    "id" => 2,
-                    "nome" => "Davi 2",
-                    "idade" => 20
-                ]
-            ];
-        }
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-        public static function find($id) {
-            $listings = self::getAll();
-            foreach($listings as $listing) {
-                if($listing["id"] == $id) {
-                    return $listing;
-                }
-            }
-        }
-    }
-?>
+class Listing extends Model
+{
+    use HasFactory;
+}
