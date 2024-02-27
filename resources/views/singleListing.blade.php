@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-    <main style="max-width: 500px; margin-top: 30px; margin-left: 60px">
+    <div class=" container border bg-slate-400 border-slate-600">
         <a href="/">Voltar</a>
         <h2>{{$dataArray["title"]}}</h2>
         <p>Id: {{ $dataArray["id"] }}</p>
@@ -10,5 +10,5 @@
         <p>{{ $dataArray["location"] }}</p>
         <p>{{ $dataArray["email"] }}</p>
         <p>{{ $dataArray["description"] }}</p>
-    </main>
+    </div>
 @endsection
