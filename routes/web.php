@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ListingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Listing;
@@ -15,20 +16,7 @@ use App\Models\Listing;
 |
 */
 
-Route::get('/', function () {
-    return view('listings', [
-        "dataArray" => Listing::all()
-    ]);
-});
+Route::get('/', [ListingController::class, "index"]);
 
-Route::get("/listings/{id}/{title}", function($id) {
-    $listing = Listing::find($id);
-    if($listing) {
-        return view("singleListing", [
-            "dataArray" => Listing::find($id)
-        ]);
-    }else {
-        abort("404");
-    }
-});
+Route::get("/listings/{id}/{title}", [ListingController::class, "show"]);
 

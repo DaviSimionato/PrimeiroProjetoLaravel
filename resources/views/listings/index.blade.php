@@ -1,16 +1,14 @@
-@extends('layout')
-
-
-@section('content')
+<x-layout>    
     @include('partials._hero')
     @include('partials._search')
     <div class="container mx-auto lg:grid lg:grid-cols-2 lg:gap-4">
-    @if (empty($dataArray))
+        @if (empty($dataArray))
         <p>Nada aqui 😓</p>
-    @else
+        @else
         @foreach ($dataArray as $listing)
-            <x-listing-card :listing="$listing"></x-listing-card>
+        <x-listing-card :listing="$listing"></x-listing-card>
         @endforeach
-    @endif
+        @endif
     </div>
-@endsection
+</x-layout>
+
