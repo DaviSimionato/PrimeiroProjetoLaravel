@@ -51,7 +51,7 @@
     <footer class="fixed bottom-0 left-0 w-full flex items-center justify-start font-bold bg-laravel text-white h-14 mt-24 opacity-90 md:justify-center">
     <p class="ml-2">Copyright &copy; {{date("Y")}}, All Rights reserved</p>
 
-    <a href="create.html" class="ml-5 top-1/3 right-10 bg-black text-white py-2 px-5">Post Job</a>
+    <a href="{{asset("/listings/create")}}" class="ml-5 top-1/3 right-10 bg-black text-white py-2 px-5">Post Job</a>
 </footer>
 </body>
 </html>

@@ -9,9 +9,18 @@ class Listing extends Model
 {
     use HasFactory;
 
+    protected $fillable = ["title","company","location","website","email",
+    "description","tags"];
+
     public function scopeFilter($query, $filters) {
         if(!empty($filters["tag"])) {
-            $query->where("tags", "like", "%" . request("tag") . "%");
+            $query->where("tags", "like", "%" . $filters["tag"] . "%");
+        }
+        if(!empty($filters["search"])) {
+            $query->where("title", "like", "%" . $filters["search"] . "%")
+            ->orWhere("tags", "like", "%" . $filters["search"] . "%")
+            ->orWhere("company", "like", "%" . $filters["search"] . "%")
+            ->orWhere("description", "like", "%" . $filters["search"] . "%");
         }
     }
 }
