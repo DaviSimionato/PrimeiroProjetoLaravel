@@ -22,15 +22,15 @@
                     <i class="fa-solid fa-location-dot"></i> {{$listing->location}}
                 </div>
                 <div class="border border-gray-200 w-full mb-6"></div>
-                <div>
+                <div class="container">
                     <h3 class="text-3xl font-bold mb-4">
                         Job Description
                     </h3>
                     <div class="text-lg space-y-6">
-                        <p>
+                        <p class="block">
                             {{$listing->description}}
                         </p>
-                        <p>
+                        <p class="block">
                             {{$listing->description}}
                         </p>
                         <a

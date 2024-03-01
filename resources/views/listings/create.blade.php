@@ -84,6 +84,7 @@
                     type="text"
                     class="border border-gray-200 rounded p-2 w-full"
                     name="website"
+                    value="{{old("website")}}"
                 />
                 @error('website')
                     <p class="text-red-700 text-xs mt-1">{{$message}}</p>
@@ -99,6 +100,7 @@
                     class="border border-gray-200 rounded p-2 w-full"
                     name="tags"
                     placeholder="Example: Laravel, Backend, Postgres, etc"
+                    value="{{old("tags")}}"
                 />
                 @error('tags')
                     <p class="text-red-700 text-xs mt-1">{{$message}}</p>
