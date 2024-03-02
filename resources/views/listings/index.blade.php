@@ -8,6 +8,9 @@
         @foreach ($dataArray as $listing)
         <x-listing-card :listing="$listing"></x-listing-card>
         @endforeach
+        <div class="mt-6 p-4">
+            {{$dataArray->links()}}
+        </div>
         @endif
     </div>
 </x-layout>
