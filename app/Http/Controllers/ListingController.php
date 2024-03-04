@@ -11,7 +11,7 @@ class ListingController extends Controller
     public function index() {
         return view('listings.index', [
             "dataArray" => Listing::filter(request(["tag","search"]))->orderBy("id")
-            ->paginate(4)
+            ->paginate(6)
         ]);
     }
 
@@ -31,7 +31,6 @@ class ListingController extends Controller
     }
 
     public function store(Request $request) {
-
         $formData = $request->validate([
             "title" => "required",
             "company" => ["required", Rule::unique("listings","company")],
@@ -42,6 +41,10 @@ class ListingController extends Controller
             "description" => "required"
         ]);
 
+        if($request->hasFile("logo")) {
+            $formData["logo"] = $request->file("logo")->store("logos","public");
+        }
+
         $tags = explode("," ,$formData["tags"]);
         $tags = array_filter($tags, function($tag) {
             return trim($tag) !== "";
@@ -51,5 +54,44 @@ class ListingController extends Controller
         
         return redirect("/listings/{$newListing->id}/{$newListing->title}")
                 ->with("message", "Listing created!");
+    }
+
+    public function edit($id) {
+        $listing = Listing::find($id);
+        return view("listings.edit", ["listing"=>$listing]);
+    }
+
+    public function update(Request $request, $id) {
+        $listing = Listing::find($id);
+        $formData = $request->validate([
+            "title" => "required",
+            "company" => "required",
+            "location" => "required",
+            "website" => "required",
+            "email" => ["required", "email"],
+            "tags" => "required",
+            "description" => "required"
+        ]);
+
+        if($request->hasFile("logo")) {
+            $formData["logo"] = $request->file("logo")->store("logos","public");
+        }
+
+        $tags = explode("," ,$formData["tags"]);
+        $tags = array_filter($tags, function($tag) {
+            return trim($tag) !== "";
+        });
+        $formData["tags"] = implode(",",$tags);
+
+        $listing->update($formData);
+        
+        return redirect("/listings/{$listing->id}/{$listing->title}")
+            ->with("message", "Listing updated!");
+    }
+
+    public function destroy($id) {
+        $listing = Listing::find($id);
+        $listing->delete();
+        return redirect("/")->with("message", "Listing deleted!");
     }
 }

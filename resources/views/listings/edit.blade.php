@@ -4,13 +4,14 @@
     >
         <header class="text-center">
             <h2 class="text-2xl font-bold uppercase mb-1">
-                Create a Gig
+                Edit Gig
             </h2>
-            <p class="mb-4">Post a gig to find a developer</p>
+            <p class="mb-4">Edit: {{$listing->title}}</p>
         </header>
 
-        <form method="POST" action="/listings" enctype="multipart/form-data">
+        <form method="POST" action="/listings/{{$listing->id}}" enctype="multipart/form-data">
             @csrf
+            @method("PUT")
             <div class="mb-6">
                 <label
                     for="company"
@@ -21,6 +22,7 @@
                     type="text"
                     class="border border-gray-200 rounded p-2 w-full"
                     name="company"
+                    value="{{$listing->company}}"
                 />
                 @error('company')
                     <p class="text-red-700 text-xs mt-1">{{$message}}</p>
@@ -36,6 +38,7 @@
                     class="border border-gray-200 rounded p-2 w-full"
                     name="title"
                     placeholder="Example: Senior Laravel Developer"
+                    value="{{$listing->title}}"
                 />
                 @error('title')
                     <p class="text-red-700 text-xs mt-1">{{$message}}</p>
@@ -53,6 +56,7 @@
                     class="border border-gray-200 rounded p-2 w-full"
                     name="location"
                     placeholder="Example: Remote, Boston MA, etc"
+                    value="{{$listing->location}}"
                 />
                 @error('location')
                     <p class="text-red-700 text-xs mt-1">{{$message}}</p>
@@ -67,6 +71,7 @@
                     type="text"
                     class="border border-gray-200 rounded p-2 w-full"
                     name="email"
+                    value="{{$listing->email}}"
                 />
                 @error('email')
                     <p class="text-red-700 text-xs mt-1">{{$message}}</p>
@@ -84,7 +89,7 @@
                     type="text"
                     class="border border-gray-200 rounded p-2 w-full"
                     name="website"
-                    value="{{old("website")}}"
+                    value="{{$listing->website}}"
                 />
                 @error('website')
                     <p class="text-red-700 text-xs mt-1">{{$message}}</p>
@@ -100,7 +105,7 @@
                     class="border border-gray-200 rounded p-2 w-full"
                     name="tags"
                     placeholder="Example: Laravel, Backend, Postgres, etc"
-                    value="{{old("tags")}}"
+                    value="{{$listing->tags}}"
                 />
                 @error('tags')
                     <p class="text-red-700 text-xs mt-1">{{$message}}</p>
@@ -119,6 +124,21 @@
                 @error('logo')
                     <p class="text-red-700 text-xs mt-1">{{$message}}</p>
                 @enderror
+                
+                @if (is_null($listing->logo))
+                    <img
+                        class="w-48 mx-auto md:block mt-5"
+                        src="{{ asset("images/no-image.png") }}"
+                        alt=""
+                    />
+                @else
+                    <img
+                        class="w-48 mx-auto md:block rounded mt-5"
+                        src="{{asset("storage/$listing->logo")}}"
+                        alt=""
+                    />
+                @endif
+
             </div>
 
             <div class="mb-6">
@@ -133,7 +153,7 @@
                     name="description"
                     rows="10"
                     placeholder="Include tasks, requirements, salary, etc"
-                ></textarea>
+                >{{$listing->description}}</textarea>
                 @error('description')
                     <p class="text-red-700 text-xs mt-1">{{$message}}</p>
                 @enderror
@@ -143,7 +163,7 @@
                 <button
                     class="bg-laravel text-white rounded py-2 px-4 hover:bg-black"
                 >
-                    Create Gig
+                    Update
                 </button>
 
                 <a href="/" class="text-black ml-4"> Back </a>
