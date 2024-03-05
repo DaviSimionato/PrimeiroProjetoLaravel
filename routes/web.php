@@ -27,10 +27,14 @@ Route::get("/listings/{id}/{title}", [ListingController::class, "show"]);
 
 Route::get("/register", [UserController::class, "index"]);
 
+Route::get("/login", [UserController::class, "login"]);
+
 Route::post("/listings", [ListingController::class, "store"]);
 
 Route::post("/users/register", [UserController::class, "store"]);
 
-Route::put("/listings/{id}", [ListingController::class, "update"]);
+Route::post("/logout", [UserController::class, "logout"]);
+
+Route::put("/listings/{listing}", [ListingController::class, "update"]);
 
 Route::delete("/listings/{listing}", [ListingController::class, "destroy"]);

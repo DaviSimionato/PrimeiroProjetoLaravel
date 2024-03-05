@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Listing;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
 class ListingController extends Controller
@@ -43,7 +42,9 @@ class ListingController extends Controller
         ]);
 
         if($request->hasFile("logo")) {
-            $formData["logo"] = $request->file("logo")->store("logos","public");
+            if($request->file("logo")->getSize() < 2004800 && substr($request->file("logo")->getMimeType(),0,5) == "image") {
+                $formData["logo"] = $request->file("logo")->store("logos","public");
+            }
         }
 
         $tags = explode("," ,$formData["tags"]);
@@ -62,8 +63,7 @@ class ListingController extends Controller
         return view("listings.edit", ["listing"=>$listing]);
     }
 
-    public function update(Request $request, $id) {
-        $listing = Listing::find($id);
+    public function update(Request $request, Listing $listing) {
         $formData = $request->validate([
             "title" => "required",
             "company" => "required",
@@ -75,7 +75,10 @@ class ListingController extends Controller
         ]);
 
         if($request->hasFile("logo")) {
-            $formData["logo"] = $request->file("logo")->store("logos","public");
+            if($request->file("logo")->getSize() < 2004800 && substr($request->file("logo")->getMimeType(),0,5) == "image") {
+                unlink("storage/$listing->logo");
+                $formData["logo"] = $request->file("logo")->store("logos","public");
+            }
         }
 
         $tags = explode("," ,$formData["tags"]);

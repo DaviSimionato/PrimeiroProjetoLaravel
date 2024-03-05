@@ -17,7 +17,7 @@
                     />
                 @else
                     <img
-                        class="w-48 mx-auto md:block rounded"
+                        class="w-48 mx-auto md:block rounded h-40"
                         src="{{asset("storage/$listing->logo")}}"
                         alt=""
                     />
