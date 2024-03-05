@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Listing;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
 class ListingController extends Controller
@@ -89,8 +90,10 @@ class ListingController extends Controller
             ->with("message", "Listing updated!");
     }
 
-    public function destroy($id) {
-        $listing = Listing::find($id);
+    public function destroy(Listing $listing) {
+        if(!is_null($listing->logo)) {
+            unlink("storage/$listing->logo");
+        }
         $listing->delete();
         return redirect("/")->with("message", "Listing deleted!");
     }

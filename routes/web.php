@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\ListingController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ListingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,8 +25,12 @@ Route::get("/listings/{id}/edit", [ListingController::class, "edit"]);
 
 Route::get("/listings/{id}/{title}", [ListingController::class, "show"]);
 
-Route::put("/listings/{id}", [ListingController::class, "update"]);
+Route::get("/register", [UserController::class, "index"]);
 
 Route::post("/listings", [ListingController::class, "store"]);
 
-Route::delete("/listings/{id}", [ListingController::class, "destroy"]);
+Route::post("/users/register", [UserController::class, "store"]);
+
+Route::put("/listings/{id}", [ListingController::class, "update"]);
+
+Route::delete("/listings/{listing}", [ListingController::class, "destroy"]);
