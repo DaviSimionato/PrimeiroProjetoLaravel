@@ -19,19 +19,21 @@ Route::get('/', [ListingController::class, "index"]);
 
 Route::get('/listings', [ListingController::class, "index"]);
 
-Route::get("/listings/create", [ListingController::class, "create"]);
+Route::get("/listings/create", [ListingController::class, "create"])->middleware("auth");
 
 Route::get("/listings/{id}/edit", [ListingController::class, "edit"]);
 
 Route::get("/listings/{id}/{title}", [ListingController::class, "show"]);
 
-Route::get("/register", [UserController::class, "index"]);
+Route::get("/register", [UserController::class, "index"])->middleware("guest");
 
-Route::get("/login", [UserController::class, "login"]);
+Route::get("/login", [UserController::class, "login"])->name("login");
 
 Route::post("/listings", [ListingController::class, "store"]);
 
 Route::post("/users/register", [UserController::class, "store"]);
+
+Route::post("/users/auth", [UserController::class, "authenticate"]);
 
 Route::post("/logout", [UserController::class, "logout"]);
 

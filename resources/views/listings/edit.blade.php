@@ -127,13 +127,13 @@
                 
                 @if (is_null($listing->logo))
                     <img
-                        class="w-48 mx-auto md:block mt-5"
+                        class="w-48 mx-auto md:block mt-5 select-none pointer-events-none"
                         src="{{ asset("images/no-image.png") }}"
                         alt=""
                     />
                 @else
                     <img
-                        class="w-48 mx-auto md:block rounded mt-5"
+                        class="w-48 mx-auto md:block rounded mt-5 select-none pointer-events-none"
                         src="{{asset("storage/$listing->logo")}}"
                         alt=""
                     />

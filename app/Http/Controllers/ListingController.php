@@ -40,18 +40,17 @@ class ListingController extends Controller
             "tags" => "required",
             "description" => "required"
         ]);
-
         if($request->hasFile("logo")) {
             if($request->file("logo")->getSize() < 2004800 && substr($request->file("logo")->getMimeType(),0,5) == "image") {
                 $formData["logo"] = $request->file("logo")->store("logos","public");
             }
         }
-
         $tags = explode("," ,$formData["tags"]);
         $tags = array_filter($tags, function($tag) {
             return trim($tag) !== "";
         });
         $formData["tags"] = implode(",",$tags);
+        $formData["user_id"] = auth()->id();
         $newListing = Listing::create($formData);
         
         return redirect("/listings/{$newListing->id}/{$newListing->title}")

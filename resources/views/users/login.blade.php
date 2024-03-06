@@ -10,7 +10,7 @@
                 <p class="mb-4">Acces your account</p>
             </header>
 
-            <form method="POST" action="/users/login">
+            <form method="POST" action="/users/auth">
                 @csrf
                 @method("POST")
 
@@ -22,6 +22,7 @@
                         type="email"
                         class="border border-gray-200 rounded p-2 w-full"
                         name="email"
+                        value="{{old("email")}}"
                     />
                     @error('email')
                         <p class="text-red-500 tex-xs mt-1">{{$message}}</p>
