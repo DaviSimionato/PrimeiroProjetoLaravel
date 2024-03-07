@@ -21,13 +21,15 @@ Route::get('/listings', [ListingController::class, "index"]);
 
 Route::get("/listings/create", [ListingController::class, "create"])->middleware("auth");
 
-Route::get("/listings/{id}/edit", [ListingController::class, "edit"]);
+Route::get("/listings/{listing}/edit", [ListingController::class, "edit"])->middleware("auth");
 
 Route::get("/listings/{id}/{title}", [ListingController::class, "show"]);
 
 Route::get("/register", [UserController::class, "index"])->middleware("guest");
 
 Route::get("/login", [UserController::class, "login"])->name("login");
+
+Route::get("/manage", [ListingController::class, "manage"])->middleware("auth");
 
 Route::post("/listings", [ListingController::class, "store"]);
 

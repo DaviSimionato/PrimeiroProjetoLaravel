@@ -57,12 +57,18 @@ class ListingController extends Controller
                 ->with("message", "Listing created!");
     }
 
-    public function edit($id) {
-        $listing = Listing::find($id);
+    public function edit(Listing $listing) {
+        if(auth()->user()->id != $listing->user_id) {
+            return abort(403, "Unauthorized action");
+        }
         return view("listings.edit", ["listing"=>$listing]);
     }
 
     public function update(Request $request, Listing $listing) {
+        if(auth()->user()->id != $listing->user_id) {
+            return back()->with("message", "Cannot update this listing!");
+        }
+
         $formData = $request->validate([
             "title" => "required",
             "company" => "required",
@@ -98,5 +104,11 @@ class ListingController extends Controller
         }
         $listing->delete();
         return redirect("/")->with("message", "Listing deleted!");
+    }
+
+    public function manage() {
+        return view("listings.manage", [
+            "listings" => Listing::query()->where("user_id", auth()->id())->get()
+        ]);
     }
 }
